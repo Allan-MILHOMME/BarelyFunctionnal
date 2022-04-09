@@ -4,23 +4,36 @@ using Pidgin;
 using System.Collections.Generic;
 using System.Linq;
 using static Pidgin.Parser;
-using static Pidgin.Parser<char>;
 
 namespace BarelyFunctionnal
 {
     public class Parser
     {
-        public static Parser<char, Instruction> InstructionParser { get; } = Rec(() =>
-        OneOf(Try(NativeFunctionParser.OfType<Instruction>()), LoadingParser.OfType<Instruction>()));
-        public static Parser<char, NativeFunction> NativeFunctionParser { get; } =
-            OneOf(Char('+'), Char('!'), Char('?'), Char('&'), Char('>')).Select(c => NativeFunction.From(c));
+        public static Parser<char, Instruction> InstructionParser { get; } = Rec(() => OneOf(Try(AssignmentParser!.OfType<Instruction>()), Try(FunctionCallParser!.OfType<Instruction>())));
+        public static Parser<char, Name> NameParser { get; } = OneOf(Letter, Digit).AtLeastOnceString().Select(s => new Name(s));
+        public static Parser<char, Value> ValueParser { get; } = Rec(() =>
+            OneOf(Try(NameParser.OfType<Value>()), FunctionParser!.OfType<Value>(), Char('?').ThenReturn(Unknown.Instance).OfType<Value>()));
+        public static Parser<char, List<Name>> ParametersParser { get; } =
+            NameParser.Separated(Char(',').Between(SkipWhitespaces))
+            .Between(Char('[').Before(SkipWhitespaces), SkipWhitespaces.Before(Char(']')))
+            .Optional().Select(r => r.HasValue ? r.Value.ToList() : new List<Name>());
+        public static Parser<char, Function> FunctionParser { get; } =
+            Map((parameters, insts) => new Function(parameters, insts.ToList()),
+                ParametersParser.Before(SkipWhitespaces),
+                InstructionParser.SurroundedByWhitespaces().Between(Char('{'), Char('}')));
+        public static Parser<char, FunctionCall> FunctionCallParser { get; } =
+            Map((caller, parameters) => new FunctionCall(caller, parameters.ToList()),
+            ValueParser,
+            ValueParser.Separated(Char(',').Between(SkipWhitespaces))
+            .Between(Char('(').Before(SkipWhitespaces), SkipWhitespaces.Before(Char(')'))).Select(v => v.ToList()));
+        public static Parser<char, Assignment> AssignmentParser { get; } =
+            Map((name, value) => new Assignment(name, value),
+                NameParser.Before(SkipWhitespaces).Before(Char('=')),
+                SkipWhitespaces.Then(ValueParser));
 
-        public static Parser<char, Loading> LoadingParser { get; } =
-            InstructionParser.SurroundedByWhitespaces().Between(Char('('), Char(')')).Select(l => new Loading(l.ToList()));
-
-        public static List<Instruction> Parse(string program)
+        public static Function Parse(string program)
         {
-            return InstructionParser.SurroundedByWhitespaces().Before(End).ParseOrThrow(program).ToList();
+            return FunctionParser.ParseOrThrow(program);
         }
     }
 }

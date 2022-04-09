@@ -1,9 +1,11 @@
-﻿using System;
+﻿using BarelyFunctionnal.Execution;
+using System;
 using System.Collections.Generic;
+using Environment = BarelyFunctionnal.Execution.Environment;
 
-namespace Inter.Syntax
+namespace BarelyFunctionnal.Syntax
 {
-    public class Name : InterValue
+    public class Name : Value
     {
         public string Value { get; }
 
@@ -34,7 +36,7 @@ namespace Inter.Syntax
                 throw new Exception("Unknown name : " + Value);
         }
 
-        public Executable GetValue(Environment stack, CallStack currentStack)
+        public Executable GetValue(Environment stack)
         {
             return stack[this];
         }

@@ -1,7 +1,11 @@
-﻿namespace BarelyFunctionnal.Syntax
+﻿using BarelyFunctionnal.Execution;
+using System.Collections.Generic;
+
+namespace BarelyFunctionnal.Syntax
 {
-    public interface Instruction
+    public BarelyFunctionnalface Instruction
     {
-        public void Execute(Context context);
+        public abstract void Compile(List<Name> currentNames);
+        public abstract void Execute(Environment environement);
     }
 }

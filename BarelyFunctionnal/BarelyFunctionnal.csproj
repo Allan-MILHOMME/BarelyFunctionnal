@@ -3,13 +3,11 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+	  <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="LanguageExt.Core" Version="4.0.4" />
     <PackageReference Include="Pidgin" Version="3.0.0" />
   </ItemGroup>
 

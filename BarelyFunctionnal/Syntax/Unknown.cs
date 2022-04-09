@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using BarelyFunctionnal.Execution;
+using System.Collections.Generic;
 
-namespace Inter.Syntax
+namespace BarelyFunctionnal.Syntax
 {
-    public class Unknown : InterValue
+    public class Unknown : Value
     {
         public static Unknown Instance { get; } = new Unknown();
 
@@ -10,7 +11,7 @@ namespace Inter.Syntax
 
         public void Compile(List<Name> currentNames) { }
 
-        public Executable GetValue(Environment stack, CallStack currentStack)
+        public Executable GetValue(Environment stack)
         {
             return UnknownFunction.Instance;
         }

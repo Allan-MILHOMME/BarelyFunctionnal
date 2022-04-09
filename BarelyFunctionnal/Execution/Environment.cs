@@ -1,13 +1,13 @@
-﻿using Inter.Syntax;
+﻿using BarelyFunctionnal.Syntax;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Inter
+namespace BarelyFunctionnal.Execution
 {
     public class Environment
     {
+        public static Environment Empty { get; } = new(null, new());
         public Dictionary<Name, Executable> Values { get; }
-
         public Environment? ParentEnvironment { get; }
 
         public Environment(Environment? parent, Dictionary<Name, Executable> values)

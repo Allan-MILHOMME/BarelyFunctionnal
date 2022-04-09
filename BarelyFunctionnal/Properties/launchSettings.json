@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "BarelyFunctionnal": {
-      "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\amilhomme\\Desktop\\program.txt\""
-    }
-  }
-}

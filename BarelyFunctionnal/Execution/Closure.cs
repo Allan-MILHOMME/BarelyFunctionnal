@@ -20,23 +20,14 @@ namespace BarelyFunctionnal.Execution
         public Environment Environment { get; }
         public Function Function { get; }
 
-        public void Execute(List<Executable> parameters)
+        public void Execute(List<Executable> parameters, bool copyEnvironment)
         {
             var paras = Function.ParametersToDictionary(parameters);
-            var newEnv = new Environment(Environment, paras);
+            var env = copyEnvironment ? Environment.Copy() : Environment;
+            var newEnv = new Environment(env, paras);
 
             foreach (var inst in Function.Instructions)
                 inst.Execute(newEnv);
-        }
-    }
-
-    public class UnknownFunction : Executable
-    {
-        public static UnknownFunction Instance { get; } = new();
-        private UnknownFunction() { }
-        public void Execute(List<Executable> paras)
-        {
-
         }
     }
 }

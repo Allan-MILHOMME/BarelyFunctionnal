@@ -39,5 +39,10 @@ namespace BarelyFunctionnal.Execution
                 return Enumerable.Concat(Values.Keys, ParentEnvironment.GetNames());
             return Values.Keys;
         }
+
+        public Environment Copy()
+        {
+            return new Environment(ParentEnvironment?.Copy(), Values.ToDictionary(p => p.Key, p => p.Value));
+        }
     }
 }

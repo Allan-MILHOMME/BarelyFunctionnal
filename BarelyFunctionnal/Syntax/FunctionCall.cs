@@ -26,7 +26,7 @@ namespace BarelyFunctionnal.Syntax
         {
             var closure = Called.GetValue(stack);
             var paras = Parameters.Select(p => p.GetValue(stack)).ToList();
-            closure.Execute(paras);
+            closure.Execute(paras, false);
         }
 
         public override string? ToString()

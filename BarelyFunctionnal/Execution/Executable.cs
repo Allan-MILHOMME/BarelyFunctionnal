@@ -2,7 +2,7 @@
 
 namespace BarelyFunctionnal.Execution
 {
-    public BarelyFunctionnalface Executable
+    public interface Executable
     {
         public void Execute(List<Executable> paras);
     }

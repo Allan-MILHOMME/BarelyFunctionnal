@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BarelyFunctionnal.Syntax
 {
-    public BarelyFunctionnalface Value
+    public interface Value
     {
         public void Compile(List<Name> currentNames);
         public Executable GetValue(Environment stack);

@@ -22,7 +22,12 @@ namespace BarelyFunctionnal
 
             var environment = Environment.Empty;
             foreach (var function in functions)
-                new Closure(environment, function).Execute(new());
+            {
+                var closure = new Closure(environment, function);
+                closure.Execute(new());
+                var newEnv = closure.Function.ParametersToDictionary(new());
+                environment = new Environment(environment, newEnv);
+            }
         }
     }
 }

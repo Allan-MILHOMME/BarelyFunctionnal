@@ -23,8 +23,8 @@ namespace BarelyFunctionnal
                 InstructionParser.SurroundedByWhitespaces().Between(Char('{'), Char('}')));
         public static Parser<char, FunctionCall> FunctionCallParser { get; } =
             Map((caller, parameters) => new FunctionCall(caller, parameters.ToList()),
-            ValueParser,
-            ValueParser.Separated(Char(',').Between(SkipWhitespaces))
+            ValueParser.Before(SkipWhitespaces),
+            ValueParser.Separated(Try(Char(',').Between(SkipWhitespaces)))
             .Between(Char('(').Before(SkipWhitespaces), SkipWhitespaces.Before(Char(')'))).Select(v => v.ToList()));
         public static Parser<char, Assignment> AssignmentParser { get; } =
             Map((name, value) => new Assignment(name, value),

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Inter": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\Users\\amilhomme\\Desktop\\inter.txt\""
+    }
+  }
+}

@@ -1,4 +1,4 @@
-﻿using BarelyFunctionnal.Syntax;
+﻿using BarelyFunctionnal.Model;
 using BarelyFunctionnal.Utils;
 using Pidgin;
 using System.Collections.Generic;

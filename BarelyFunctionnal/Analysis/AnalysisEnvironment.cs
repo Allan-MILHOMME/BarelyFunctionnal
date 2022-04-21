@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BarelyFunctionnal.Execution
+namespace BarelyFunctionnal.Analysis
 {
-    public class Environment
+    public class AnalysisEnvironment
     {
-        public static Environment Empty { get; } = new(null, new());
-        public Dictionary<Name, Executable> Values { get; }
-        public Environment? ParentEnvironment { get; }
+        public static AnalysisEnvironment Empty { get; } = new(null, new());
+        public Dictionary<Name, AnalysisPossibleValue> Values { get; }
+        public AnalysisEnvironment? ParentEnvironment { get; }
 
-        public Environment(Environment? parent, Dictionary<Name, Executable> values)
+        public AnalysisEnvironment(AnalysisEnvironment? parent, Dictionary<Name, AnalysisPossibleValue> values)
         {
             ParentEnvironment = parent;
             Values = values;
         }
 
-        public Executable this[Name name]
+        public AnalysisPossibleValue this[Name name]
         {
             get
             {
@@ -40,9 +40,9 @@ namespace BarelyFunctionnal.Execution
             return Values.Keys;
         }
 
-        public Environment Copy()
+        public AnalysisEnvironment Copy()
         {
-            return new Environment(ParentEnvironment?.Copy(), Values.ToDictionary(p => p.Key, p => p.Value));
+            return new AnalysisEnvironment(ParentEnvironment?.Copy(), Values.ToDictionary(p => p.Key, p => p.Value));
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using BarelyFunctionnal.Execution;
+﻿using BarelyFunctionnal.Analysis;
+using BarelyFunctionnal.Execution;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BarelyFunctionnal.Syntax
+namespace BarelyFunctionnal.Model
 {
     public class Function : Value
     {
@@ -29,6 +30,11 @@ namespace BarelyFunctionnal.Syntax
             return new Closure(stack, this);
         }
 
+        public AnalysisPossibleValue GetAnalysisValue(AnalysisEnvironment stack)
+        {
+            return new AnalysisClosure(stack, this);
+        }
+
         public Dictionary<Name, Executable> ParametersToDictionary(List<Executable> parameters)
         {
             var paras = new Dictionary<Name, Executable>();
@@ -38,6 +44,19 @@ namespace BarelyFunctionnal.Syntax
                     paras[ParametersNames[i]] = parameters[i];
                 else
                     paras[ParametersNames[i]] = new Closure();
+            }
+            return paras;
+        }
+
+        public Dictionary<Name, AnalysisPossibleValue> ParametersToAnalysisDictionary(List<AnalysisPossibleValue> parameters)
+        {
+            var paras = new Dictionary<Name, AnalysisPossibleValue>();
+            for (var i = 0; i < ParametersNames.Count; i++)
+            {
+                if (parameters.Count > i)
+                    paras[ParametersNames[i]] = parameters[i];
+                else
+                    paras[ParametersNames[i]] = new AnalysisClosure();
             }
             return paras;
         }

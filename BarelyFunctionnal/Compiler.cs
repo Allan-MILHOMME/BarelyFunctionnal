@@ -1,4 +1,4 @@
-﻿using BarelyFunctionnal.Syntax;
+﻿using BarelyFunctionnal.Model;
 using System.Collections.Generic;
 
 namespace BarelyFunctionnal

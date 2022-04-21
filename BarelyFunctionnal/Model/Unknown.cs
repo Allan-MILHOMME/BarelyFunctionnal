@@ -1,7 +1,8 @@
-﻿using BarelyFunctionnal.Execution;
+﻿using BarelyFunctionnal.Analysis;
+using BarelyFunctionnal.Execution;
 using System.Collections.Generic;
 
-namespace BarelyFunctionnal.Syntax
+namespace BarelyFunctionnal.Model
 {
     public class Unknown : Value
     {
@@ -24,6 +25,11 @@ namespace BarelyFunctionnal.Syntax
         public override int GetHashCode()
         {
             return 1;
+        }
+
+        public AnalysisPossibleValue GetAnalysisValue(AnalysisEnvironment environment)
+        {
+            return AnalysisUnknown.Instance;
         }
     }
 }

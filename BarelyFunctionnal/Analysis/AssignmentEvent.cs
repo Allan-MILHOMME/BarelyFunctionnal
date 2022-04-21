@@ -3,9 +3,9 @@
     public class AssignmentEvent
     {
         public OccurenceCount? Count { get; }
-        public AnalysisValue Value { get; }
+        public AnalysisPossibleValue Value { get; }
 
-        public AssignmentEvent(AnalysisValue value, OccurenceCount? count)
+        public AssignmentEvent(AnalysisPossibleValue value, OccurenceCount? count)
         {
             Value = value;
             Count = count;

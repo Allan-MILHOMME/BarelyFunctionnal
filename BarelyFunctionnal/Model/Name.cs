@@ -1,9 +1,10 @@
-﻿using BarelyFunctionnal.Execution;
+﻿using BarelyFunctionnal.Analysis;
+using BarelyFunctionnal.Execution;
 using System;
 using System.Collections.Generic;
 using Environment = BarelyFunctionnal.Execution.Environment;
 
-namespace BarelyFunctionnal.Syntax
+namespace BarelyFunctionnal.Model
 {
     public class Name : Value
     {
@@ -39,6 +40,11 @@ namespace BarelyFunctionnal.Syntax
         public Executable GetValue(Environment stack)
         {
             return stack[this];
+        }
+
+        public AnalysisPossibleValue GetAnalysisValue(AnalysisEnvironment environment)
+        {
+            return environment[this];
         }
     }
 }

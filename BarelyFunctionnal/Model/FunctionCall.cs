@@ -1,8 +1,9 @@
-﻿using BarelyFunctionnal.Execution;
+﻿using BarelyFunctionnal.Analysis;
+using BarelyFunctionnal.Execution;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BarelyFunctionnal.Syntax
+namespace BarelyFunctionnal.Model
 {
     public class FunctionCall : Instruction
     {
@@ -14,6 +15,13 @@ namespace BarelyFunctionnal.Syntax
 
         public Value Called { get; }
         public List<Value> Parameters { get; }
+
+        public void Analyse(AnalysisEnvironment environment, OccurenceCount? currentOccurenceCount)
+        {
+            var closure = Called.GetAnalysisValue(environment);
+            var paras = Parameters.Select(p => p.GetAnalysisValue(environment)).ToList();
+            closure.Analyse(paras, currentOccurenceCount);
+        }
 
         public void Compile(List<Name> currentNames)
         {

@@ -30,9 +30,10 @@ namespace BarelyFunctionnal.Model
             return new Closure(stack, this);
         }
 
-        public AnalysisPossibleValue GetAnalysisValue(AnalysisEnvironment stack)
+        public AnalysisExecutable GetAnalysisValue(AnalysisEnvironment stack)
         {
-            return new AnalysisClosure(stack, this);
+            var env = new AnalysisEnvironmentNode(stack);
+            return new AnalysisClosure(env, this);
         }
 
         public Dictionary<Name, Executable> ParametersToDictionary(List<Executable> parameters)
@@ -48,9 +49,9 @@ namespace BarelyFunctionnal.Model
             return paras;
         }
 
-        public Dictionary<Name, AnalysisPossibleValue> ParametersToAnalysisDictionary(List<AnalysisPossibleValue> parameters)
+        public Dictionary<Name, AnalysisExecutable> ParametersToAnalysisDictionary(List<AnalysisExecutable> parameters)
         {
-            var paras = new Dictionary<Name, AnalysisPossibleValue>();
+            var paras = new Dictionary<Name, AnalysisExecutable>();
             for (var i = 0; i < ParametersNames.Count; i++)
             {
                 if (parameters.Count > i)

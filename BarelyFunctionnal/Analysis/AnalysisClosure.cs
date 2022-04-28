@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace BarelyFunctionnal.Analysis
 {
-    public class AnalysisClosure : AnalysisPossibleValue
+    public class AnalysisClosure : AnalysisExecutable
     {
-        public AnalysisEnvironment Environment { get; }
+        public AnalysisEnvironmentNode Environment { get; }
         public Function Function { get; }
-        public AnalysisClosure(AnalysisEnvironment env, Function function)
+        public AnalysisClosure(AnalysisEnvironmentNode env, Function function)
         {
             Environment = env;
             Function = function;
@@ -16,16 +16,19 @@ namespace BarelyFunctionnal.Analysis
         public AnalysisClosure()
         {
             Function = new Function(new(), new());
-            Environment = new AnalysisEnvironment(null, new());
+            Environment = new AnalysisEnvironmentNode(new AnalysisEnvironment(null, new()));
         }
 
-        public void Analyse(List<AnalysisPossibleValue> parameters, OccurenceCount? currentOccurenceCount)
+        public void Analyse(List<AnalysisExecutable> parameters)
         {
+
+
+
             var paras = Function.ParametersToAnalysisDictionary(parameters);
-            var newEnv = new AnalysisEnvironment(Environment, paras);
+            var newEnv = Environment.AddParameters(paras);
 
             foreach (var inst in Function.Instructions)
-                inst.Analyse(newEnv, currentOccurenceCount);
+                newEnv.Analyse(inst);
         }
     }
 }

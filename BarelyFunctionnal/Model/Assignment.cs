@@ -26,13 +26,9 @@ namespace BarelyFunctionnal.Model
             environment[Name] = Value.GetValue(environment);
         }
 
-        public void Analyse(AnalysisEnvironment environment, OccurenceCount? currentOccurenceCount)
+        public void Analyse(AnalysisEnvironment environment)
         {
-            var value = new AssignmentEvent(Value.GetAnalysisValue(environment), currentOccurenceCount);
-            if (currentOccurenceCount == null)
-                environment[Name] = new AnalysisValue(new() { value });
-            else
-                environment[Name].Events.Add(value);
+            environment[Name] = Value.GetAnalysisValue(environment);
         }
     }
 }

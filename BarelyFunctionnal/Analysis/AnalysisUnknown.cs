@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace BarelyFunctionnal.Analysis
 {
-    public class AnalysisUnknown : AnalysisPossibleValue
+    public class AnalysisUnknown : AnalysisExecutable
     {
         public static AnalysisUnknown Instance { get; } = new();
         private AnalysisUnknown() { }
 
-        public void Analyse(List<AnalysisPossibleValue> parameters, OccurenceCount? currentOccurenceCount)
+        public void Analyse(List<AnalysisExecutable> parameters)
         {
-            var occCount = new OccurenceCount(currentOccurenceCount);
-            foreach (var p in parameters)
-                p.Analyse(new(), occCount);
+            if (parameters.First() is AnalysisClosure closure)
+                closure.Environment.Split(closure);
+
         }
     }
 }

@@ -42,7 +42,7 @@ namespace BarelyFunctionnal.Model
             return stack[this];
         }
 
-        public AnalysisPossibleValue GetAnalysisValue(AnalysisEnvironment environment)
+        public AnalysisExecutable GetAnalysisValue(AnalysisEnvironment environment)
         {
             return environment[this];
         }

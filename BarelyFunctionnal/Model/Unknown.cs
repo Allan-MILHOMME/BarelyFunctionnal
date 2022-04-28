@@ -27,7 +27,7 @@ namespace BarelyFunctionnal.Model
             return 1;
         }
 
-        public AnalysisPossibleValue GetAnalysisValue(AnalysisEnvironment environment)
+        public AnalysisExecutable GetAnalysisValue(AnalysisEnvironment environment)
         {
             return AnalysisUnknown.Instance;
         }

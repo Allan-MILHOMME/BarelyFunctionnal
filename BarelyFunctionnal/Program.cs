@@ -21,13 +21,13 @@ namespace BarelyFunctionnal
                 names.AddRange(function.ParametersNames);
             }
 
-            var analysisEnvironment = AnalysisEnvironment.Empty;
+            var analysisEnvironment = new AnalysisEnvironmentNode(new AnalysisEnvironment(null, new()));
             foreach (var function in functions)
             {
                 var closure = new AnalysisClosure(analysisEnvironment, function);
-                closure.Analyse(new(), null);
+                closure.Analyse(new());
                 var newEnv = closure.Function.ParametersToAnalysisDictionary(new());
-                analysisEnvironment = new AnalysisEnvironment(analysisEnvironment, newEnv);
+                analysisEnvironment = analysisEnvironment.AddParameters(newEnv);
             }
 
             var environment = Environment.Empty;

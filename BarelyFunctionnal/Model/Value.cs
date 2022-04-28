@@ -8,6 +8,6 @@ namespace BarelyFunctionnal.Model
     {
         public void Compile(List<Name> currentNames);
         public Executable GetValue(Environment stack);
-        public AnalysisValue GetAnalysisValue(AnalysisEnvironment environment);
+        public AnalysisExecutable GetAnalysisValue(AnalysisEnvironment environment);
     }
 }

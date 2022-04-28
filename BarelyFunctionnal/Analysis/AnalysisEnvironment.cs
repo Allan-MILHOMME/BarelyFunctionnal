@@ -6,17 +6,17 @@ namespace BarelyFunctionnal.Analysis
 {
     public class AnalysisEnvironment
     {
-        public static AnalysisEnvironment Empty { get; } = new(null, new());
-        public Dictionary<Name, AnalysisPossibleValue> Values { get; }
+        public Dictionary<Name, AnalysisExecutable> Values { get; }
         public AnalysisEnvironment? ParentEnvironment { get; }
+        public AnalysisEnvironmentNode Node { get; set; } = null!;
 
-        public AnalysisEnvironment(AnalysisEnvironment? parent, Dictionary<Name, AnalysisPossibleValue> values)
+        public AnalysisEnvironment(AnalysisEnvironment? parent, Dictionary<Name, AnalysisExecutable> values)
         {
             ParentEnvironment = parent;
             Values = values;
         }
 
-        public AnalysisPossibleValue this[Name name]
+        public AnalysisExecutable this[Name name]
         {
             get
             {
@@ -40,9 +40,12 @@ namespace BarelyFunctionnal.Analysis
             return Values.Keys;
         }
 
-        public AnalysisEnvironment Copy()
+        public AnalysisEnvironment Split()
         {
-            return new AnalysisEnvironment(ParentEnvironment?.Copy(), Values.ToDictionary(p => p.Key, p => p.Value));
+            var newEnv = new AnalysisEnvironment(ParentEnvironment?.Split(), Values.ToDictionary(p => p.Key, p => p.Value));
+            Node.Split(newEnv);
+            Node = Node.Value.Right!.Item1;
+            return newEnv;
         }
     }
 }

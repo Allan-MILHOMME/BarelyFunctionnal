@@ -11,6 +11,7 @@ namespace BarelyFunctionnal
         {
             var names = new List<Name>();
             var functions = new List<Function>();
+            var instructions = new List<Instruction>();
             foreach (var arg in args)
             {
                 var program = File.ReadAllText(arg);
@@ -18,16 +19,13 @@ namespace BarelyFunctionnal
                 functions.Add(function);
                 Compiler.CompileMain(function, names);
                 names.AddRange(function.ParametersNames);
+                instructions.AddRange(function.Instructions);
             }
 
+            var mergedFunction = new Function(names, instructions);
             var environment = Environment.Empty;
-            foreach (var function in functions)
-            {
-                var closure = new Closure(environment, function);
-                closure.Execute(new());
-                var newEnv = closure.Function.ParametersToDictionary(new());
-                environment = new Environment(environment, newEnv);
-            }
+            var closure = new Closure(environment, mergedFunction);
+            closure.Execute(new(), false);
         }
     }
 }

@@ -10,7 +10,6 @@ namespace BarelyFunctionnal.Syntax
         {
             ParametersNames = parametersNames;
             Instructions = instructions;
-
         }
 
         public List<Name> ParametersNames { get; }

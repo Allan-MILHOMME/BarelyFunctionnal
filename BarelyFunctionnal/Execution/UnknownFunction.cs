@@ -1,31 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace BarelyFunctionnal.Execution
 {
     public class UnknownFunction : Executable
     {
+        public static bool ReadNextNatural { get; set; } = true;
+        public static int NaturalInput { get; set; } = 0;
         public static UnknownFunction Instance { get; } = new();
         private UnknownFunction() { }
         public void Execute(List<Executable> paras, bool copyEnvironment)
         {
-            if (paras.Any())
+            if (paras.Count > 1)
             {
-                var option = CountFunction.Count(paras.First());
-
-                if (option == 0 && paras.Count > 2)
-                    if (int.TryParse(Console.ReadLine(), out var intValue))
-                        for (var i = 0; i < intValue; i++)
-                            paras[1].Execute(new(), false);
-
-                if (option == 1 && paras.Count > 2)
-                    Console.WriteLine(CountFunction.Count(paras[1]));
-
-                if (option == 2 && paras.Count > 2)
-                    for (var i = 0; i < new Random().Next(); i++)
-                        paras[1].Execute(new(), false);
+                var mode = CountFunction.Count(paras[1]);
+                if (Execute(mode, paras))
+                    paras[0].Execute(new(), false);
             }
+        }
+
+        public static bool Execute(int mode, List<Executable> paras)
+        {
+            if (mode == 0 && paras.Count > 2)
+                Console.WriteLine(CountFunction.Count(paras[2]));
+
+            if (mode == 1)
+            {
+                if (ReadNextNatural)
+                {
+                    ReadNextNatural = false;
+                    NaturalInput = int.Parse(Console.ReadLine()!);
+                }
+
+                if (NaturalInput == 0)
+                    ReadNextNatural = true;
+                else
+                {
+                    NaturalInput--;
+                    return true;
+                }
+            }
+
+            if (mode == 2)
+                if (new Random().Next() % 2 == 0)
+                    return true;
+
+            return false;
         }
     }
 }

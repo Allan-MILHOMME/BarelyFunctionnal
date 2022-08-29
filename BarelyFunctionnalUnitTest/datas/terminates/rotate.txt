@@ -1,0 +1,16 @@
+[a, b, c, d, rotate] {
+
+	rotate = {
+		a = b
+		b = c
+		c = d
+		a()
+	}
+
+	a = rotate
+	b = rotate
+	c = rotate
+	d = {}
+
+	rotate()
+}

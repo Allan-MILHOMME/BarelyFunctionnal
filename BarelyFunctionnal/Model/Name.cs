@@ -1,5 +1,6 @@
 ﻿using BarelyFunctionnal.Analysis;
 using BarelyFunctionnal.Execution;
+using BarelyFunctionnal.Utils;
 using System;
 using System.Collections.Generic;
 using Environment = BarelyFunctionnal.Execution.Environment;
@@ -45,6 +46,11 @@ namespace BarelyFunctionnal.Model
         public AnalysisExecutable GetAnalysisValue(AnalysisEnvironment environment)
         {
             return environment[this];
+        }
+
+        public Either<Name, AnalysisExecutable> GetAnalysisSource(AnalysisEnvironment environment)
+        {
+            return this;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BarelyFunctionnal.Analysis;
 using BarelyFunctionnal.Execution;
+using BarelyFunctionnal.Utils;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,15 +8,15 @@ namespace BarelyFunctionnal.Model
 {
     public class Function : Value
     {
+        public List<Name> ParametersNames { get; }
+        public List<Instruction> Instructions { get; }
+
         public Function(List<Name> parametersNames, List<Instruction> instructions)
         {
             ParametersNames = parametersNames;
             Instructions = instructions;
 
         }
-
-        public List<Name> ParametersNames { get; }
-        public List<Instruction> Instructions { get; }
 
         public void Compile(List<Name> currentNames)
         {
@@ -60,6 +61,12 @@ namespace BarelyFunctionnal.Model
                     paras[ParametersNames[i]] = new AnalysisClosure();
             }
             return paras;
+        }
+
+        public Either<Name, AnalysisExecutable> GetAnalysisSource(AnalysisEnvironment environment)
+        {
+            var env = new AnalysisEnvironmentNode(environment);
+            return new AnalysisClosure(env, this);
         }
     }
 }

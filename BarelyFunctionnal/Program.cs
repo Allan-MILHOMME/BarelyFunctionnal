@@ -25,7 +25,7 @@ namespace BarelyFunctionnal
             foreach (var function in functions)
             {
                 var closure = new AnalysisClosure(analysisEnvironment, function);
-                closure.Analyse(new());
+                closure.Analyse(new(), new(), null);
                 var newEnv = closure.Function.ParametersToAnalysisDictionary(new());
                 analysisEnvironment = analysisEnvironment.AddParameters(newEnv);
             }

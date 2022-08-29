@@ -19,16 +19,11 @@ namespace BarelyFunctionnal.Analysis
             Environment = new AnalysisEnvironmentNode(new AnalysisEnvironment(null, new()));
         }
 
-        public void Analyse(List<AnalysisExecutable> parameters)
+        public void Analyse(List<AnalysisExecutable> parameters, List<Value> parameterValues, AnalysisCallData? callData)
         {
-
-
-
             var paras = Function.ParametersToAnalysisDictionary(parameters);
             var newEnv = Environment.AddParameters(paras);
-
-            foreach (var inst in Function.Instructions)
-                newEnv.Analyse(inst);
+            newEnv.Analyse(Function.Instructions, parameterValues, callData, Function, this);
         }
     }
 }

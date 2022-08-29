@@ -34,5 +34,22 @@ namespace BarelyFunctionnal.Utils
         {
             return new Either<L, R>(right);
         }
+
+        public override string? ToString()
+        {
+            return Select(left => left.ToString(), right => right.ToString());
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not Either<L, R> either)
+                return false;
+            return Select(left => left.Equals(either.Left), right => right.Equals(either.Right));
+        }
+
+        public override int GetHashCode()
+        {
+            return Select(l => l.GetHashCode(), r => r.GetHashCode());
+        }
     }
 }

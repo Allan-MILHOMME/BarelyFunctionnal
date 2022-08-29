@@ -16,11 +16,11 @@ namespace BarelyFunctionnal.Model
         public Value Called { get; }
         public List<Value> Parameters { get; }
 
-        public void Analyse(AnalysisEnvironment environment)
+        public void Analyse(AnalysisEnvironment environment, AnalysisCallData callData)
         {
-            var closure = Called.GetAnalysisValue(environment);
+            var executable = Called.GetAnalysisValue(environment);
             var paras = Parameters.Select(p => p.GetAnalysisValue(environment)).ToList();
-            closure.Analyse(paras);
+            executable.Analyse(paras, Parameters, callData);
         }
 
         public void Compile(List<Name> currentNames)

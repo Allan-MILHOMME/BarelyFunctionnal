@@ -7,13 +7,12 @@ namespace BarelyFunctionnal.Analysis
     {
         public AnalysisCallData? ParentCall { get; }
         public Function Function { get; }
-        public AnalysisSources Sources { get; }
+        public List<AnalysisCallData> ChildrenCalls { get; } = new();
         public AnalysisClosure Closure { get; }
 
-        public AnalysisCallData(AnalysisCallData? parent, AnalysisSources sources, Function function, AnalysisClosure closure)
+        public AnalysisCallData(AnalysisCallData? parent, Function function, AnalysisClosure closure)
         {
             ParentCall = parent;
-            Sources = sources;
             Function = function;
             Closure = closure;
         }
@@ -38,19 +37,6 @@ namespace BarelyFunctionnal.Analysis
                 foreach (var p in ParentCall.GetInnerCallsAfter(function))
                     yield return p;
             }
-        }
-
-        public AnalysisSources GetSourcesFrom(AnalysisCallData parent)
-        {
-            return ParentCall!.GetSourcesFrom(parent, Sources);
-        }
-
-        private AnalysisSources GetSourcesFrom(AnalysisCallData parent, AnalysisSources current)
-        {
-            if (this == parent)
-                return current;
-
-            return ParentCall!.GetSourcesFrom(parent, current.AddParent(Sources));
         }
 
         public int GetEnvSize()

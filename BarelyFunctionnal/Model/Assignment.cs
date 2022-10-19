@@ -6,14 +6,14 @@ namespace BarelyFunctionnal.Model
 {
     public class Assignment : Instruction
     {
+        public Name Name { get; }
+        public Value Value { get; }
+
         public Assignment(Name name, Value value)
         {
             Name = name;
             Value = value;
         }
-
-        public Name Name { get; }
-        public Value Value { get; }
 
         public void Compile(List<Name> currentNames)
         {
@@ -29,7 +29,6 @@ namespace BarelyFunctionnal.Model
         public void Analyse(AnalysisEnvironment environment, AnalysisCallData data)
         {
             environment[Name] = Value.GetAnalysisValue(environment);
-            data.Sources.Sources[Name] = Value.GetAnalysisSource(environment);
         }
     }
 }

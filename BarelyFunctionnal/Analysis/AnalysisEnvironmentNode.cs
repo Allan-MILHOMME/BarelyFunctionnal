@@ -27,7 +27,9 @@ namespace BarelyFunctionnal.Analysis
         {
             Value.Do(left =>
             {
-                var newCallData = new AnalysisCallData(callData, new AnalysisSources(left, function, parameterValues), function, closure);
+                var newCallData = new AnalysisCallData(callData, function, closure);
+                if (callData != null)
+                    callData.ChildrenCalls.Add(callData);
                 if (SearchLoop(newCallData))
                     throw new Exception("Loop");
 

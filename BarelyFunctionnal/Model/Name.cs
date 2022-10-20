@@ -42,15 +42,5 @@ namespace BarelyFunctionnal.Model
         {
             return stack[this];
         }
-
-        public AnalysisExecutable GetAnalysisValue(AnalysisEnvironment environment)
-        {
-            return environment[this];
-        }
-
-        public Either<Name, AnalysisExecutable> GetAnalysisSource(AnalysisEnvironment environment)
-        {
-            return this;
-        }
     }
 }

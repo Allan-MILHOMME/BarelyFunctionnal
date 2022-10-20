@@ -16,13 +16,6 @@ namespace BarelyFunctionnal.Model
         public Value Called { get; }
         public List<Value> Parameters { get; }
 
-        public void Analyse(AnalysisEnvironment environment, AnalysisCallData callData)
-        {
-            var executable = Called.GetAnalysisValue(environment);
-            var paras = Parameters.Select(p => p.GetAnalysisValue(environment)).ToList();
-            executable.Analyse(paras, Parameters, callData);
-        }
-
         public void Compile(List<Name> currentNames)
         {
             Called.Compile(currentNames);
@@ -34,7 +27,7 @@ namespace BarelyFunctionnal.Model
         {
             var closure = Called.GetValue(stack);
             var paras = Parameters.Select(p => p.GetValue(stack)).ToList();
-            closure.Execute(paras, false);
+            closure.Execute(paras);
         }
 
         public override string? ToString()

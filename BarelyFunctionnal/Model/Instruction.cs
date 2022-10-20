@@ -8,6 +8,5 @@ namespace BarelyFunctionnal.Model
     {
         public abstract void Compile(List<Name> currentNames);
         public abstract void Execute(Environment environement);
-        public abstract void Analyse(AnalysisEnvironment environment, AnalysisCallData data);
     }
 }

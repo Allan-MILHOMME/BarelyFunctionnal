@@ -25,10 +25,5 @@ namespace BarelyFunctionnal.Model
         {
             environment[Name] = Value.GetValue(environment);
         }
-
-        public void Analyse(AnalysisEnvironment environment, AnalysisCallData data)
-        {
-            environment[Name] = Value.GetAnalysisValue(environment);
-        }
     }
 }

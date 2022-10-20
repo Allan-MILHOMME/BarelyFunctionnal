@@ -40,9 +40,16 @@ namespace BarelyFunctionnal.Execution
             return Values.Keys;
         }
 
-        public Environment Copy()
+        public Environment Copy(Dictionary<Environment, Environment> envs)
         {
-            return new Environment(ParentEnvironment?.Copy(), Values.ToDictionary(p => p.Key, p => p.Value));
+            if (envs.ContainsKey(this))
+                return envs[this];
+
+            var env = new Environment(ParentEnvironment?.Copy(envs), Values.ToDictionary(p => p.Key, p => p.Value));
+            envs[this] = env;
+            foreach (var entry in env.Values)
+                env[entry.Key] = entry.Value.Copy(envs);
+            return env;
         }
     }
 }

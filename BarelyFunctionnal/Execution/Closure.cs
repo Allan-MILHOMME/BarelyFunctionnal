@@ -5,29 +5,38 @@ namespace BarelyFunctionnal.Execution
 {
     public class Closure : Executable
     {
+        public Environment Environment { get; }
+        public Function Function { get; }
+
+        public Closure() : this(new(null, new()), new(new(), new())) { }
+
         public Closure(Environment env, Function function)
         {
             Environment = env;
             Function = function;
         }
 
-        public Closure()
-        {
-            Function = new Function(new(), new());
-            Environment = new Environment(null, new());
-        }
-
-        public Environment Environment { get; }
-        public Function Function { get; }
-
-        public void Execute(List<Executable> parameters, bool copyEnvironment)
+        public void Analyse(List<Executable> parameters)
         {
             var paras = Function.ParametersToDictionary(parameters);
-            var env = copyEnvironment ? Environment.Copy() : Environment;
-            var newEnv = new Environment(env, paras);
+            var newEnv = new Environment(Environment, paras);
 
             foreach (var inst in Function.Instructions)
                 inst.Execute(newEnv);
+        }
+
+        public void Execute(List<Executable> parameters)
+        {
+            var paras = Function.ParametersToDictionary(parameters);
+            var newEnv = new Environment(Environment, paras);
+
+            foreach (var inst in Function.Instructions)
+                inst.Execute(newEnv);
+        }
+
+        public Executable Copy(Dictionary<Environment, Environment> envs)
+        {
+            return new Closure(Environment.Copy(envs), Function);
         }
     }
 }

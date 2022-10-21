@@ -1,5 +1,4 @@
-﻿using BarelyFunctionnal.Analysis;
-using BarelyFunctionnal.Execution;
+﻿using BarelyFunctionnal.Executions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,11 +22,13 @@ namespace BarelyFunctionnal.Model
                 param.Compile(currentNames);
         }
 
-        public void Execute(Environment stack)
+        public Execution? Execute(Environment stack, Execution parent)
         {
             var closure = Called.GetValue(stack);
             var paras = Parameters.Select(p => p.GetValue(stack)).ToList();
-            closure.Execute(paras);
+            var execution = closure.GetExecution(parent, paras);
+            execution.ExecuteNext();
+            return execution;
         }
 
         public override string? ToString()

@@ -1,9 +1,7 @@
-﻿using BarelyFunctionnal.Analysis;
-using BarelyFunctionnal.Execution;
-using BarelyFunctionnal.Utils;
+﻿using BarelyFunctionnal.Executions;
 using System;
 using System.Collections.Generic;
-using Environment = BarelyFunctionnal.Execution.Environment;
+using Environment = BarelyFunctionnal.Executions.Environment;
 
 namespace BarelyFunctionnal.Model
 {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BarelyFunctionnal.Execution
+namespace BarelyFunctionnal.Executions
 {
     public class Environment
     {
@@ -36,7 +36,7 @@ namespace BarelyFunctionnal.Execution
         public IEnumerable<Name> GetNames()
         {
             if (ParentEnvironment != null)
-                return Enumerable.Concat(Values.Keys, ParentEnvironment.GetNames());
+                return Values.Keys.Concat(ParentEnvironment.GetNames());
             return Values.Keys;
         }
 

@@ -1,5 +1,4 @@
-﻿using BarelyFunctionnal.Analysis;
-using BarelyFunctionnal.Execution;
+﻿using BarelyFunctionnal.Executions;
 using System.Collections.Generic;
 
 namespace BarelyFunctionnal.Model
@@ -7,6 +6,6 @@ namespace BarelyFunctionnal.Model
     public interface Instruction
     {
         public abstract void Compile(List<Name> currentNames);
-        public abstract void Execute(Environment environement);
+        public abstract Execution? Execute(Environment environement, Execution parent);
     }
 }

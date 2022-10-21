@@ -1,5 +1,4 @@
-﻿using BarelyFunctionnal.Analysis;
-using BarelyFunctionnal.Execution;
+﻿using BarelyFunctionnal.Executions;
 using System.Collections.Generic;
 
 namespace BarelyFunctionnal.Model
@@ -21,9 +20,10 @@ namespace BarelyFunctionnal.Model
             Value.Compile(currentNames);
         }
 
-        public void Execute(Environment environment)
+        public Execution? Execute(Environment environment, Execution parent)
         {
             environment[Name] = Value.GetValue(environment);
+            return null;
         }
     }
 }
